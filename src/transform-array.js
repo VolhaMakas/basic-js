@@ -24,23 +24,46 @@ function transform(arr) {
   if (!Array.isArray(arr)) {
     throw new Error("'arr' parameter must be an instance of the Array!");
   }
-
-  // const newArr = arr.slice(0);
-  // newArr.forEach((element, index, currentArr) => {
+  // const newArr = [];
+  // arr.forEach((element, index) => {
   //   if (element === DOUBLE_NEXT) {
-  //     element = newArr[index++]
+  //     newArr.push(arr[index++])
+  //     return;
   //   } else if (element === DOUBLE_PREV) {
-  //     element = newArr[index--]
-  //   } else if (element === DISCARD_NEXT) {
-  //     let deleteIndex = 1;
+  //     newArr.push(arr[index--])
+  //     return;
+  //   }
 
-  //     if (newArr[index + 2] === DISCARD_PREV || newArr[index + 2] === DOUBLE_PREV) {
-  //       deleteIndex = 3;
+
+
+  //   if (arr[index--] === DISCARD_NEXT) {
+  //     return;
+  //   }
+  //   if ( arr[index++] === DISCARD_PREV) {
+  //     return;
+  //   }
+  //   if (element !== DISCARD_PREV && element !== DISCARD_NEXT) {
+  //     newArr.push(element);
+  //   }
+
+
+  // })
+  // const newArray = arr.slice(0);
+  // newArray.forEach((element, index, currentArr) => {
+  //   if (element === DOUBLE_NEXT) {
+  //     element = newArray[index++]
+  //   } else if (element === DOUBLE_PREV) {
+  //     element = newArray[index--]
+  //   } else if (element === DISCARD_NEXT) {
+  //     let deleteIndex = index+1;
+
+  //     if (newArray[index + 2] === DISCARD_PREV || newArray[index + 2] === DOUBLE_PREV) {
+  //     deleteIndex = index +2;
   //     }
-  //     currentArr.splice(index, deleteIndex)
+  //     newArray.splice(index, deleteIndex)
   //   }
   // });
-  // throw new Error(newArray)2
+  // throw new Error(newArray)
 
   const newArr = arr.slice(0).reduce((acc, element, index, currentArr) => {
     if (element === DOUBLE_NEXT) {
@@ -69,7 +92,8 @@ function transform(arr) {
         return acc
       }
     } else if (element === DISCARD_PREV) {
-      return [ ...acc.slice(acc.length - 1)]
+      acc.splice(acc.length - 1)
+      return [ ...acc]
     } else {
       return [...acc, element]
     }
